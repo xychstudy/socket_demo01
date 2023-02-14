@@ -22,16 +22,30 @@ public class ServiceSocketDemo {
              OutputStream os = socket.getOutputStream();
             Scanner scanner = new Scanner(is)
         ){
-            PrintWriter pw = new PrintWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8),true);
-            pw.println("欢迎来到java的世界 ");
+            PrintWriter pw = new PrintWriter(new OutputStreamWriter(os, "gbk"),true);
+            pw.println("欢迎来到java的世界,按exit退出 ");
             boolean done = false;
             while (!done && scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 System.out.println(line);
-
-                if ("2048".equals(line)) {
+                
+                if ("exit".equals(line)) {
                     done = true;
+                }else {
+                    try {
+                        // 如果输出的
+                        if (Integer.parseInt(line) < 10000) {
+                            pw.println("小伙洗洗睡吧");
+                        }
+                        if(Integer.parseInt(line) > 10000){
+                            pw.println("你在想屁");
+                        }
+                    }catch (Exception e){
+                        pw.println("不要乱搞！！！");
+                    }
                 }
+                
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
